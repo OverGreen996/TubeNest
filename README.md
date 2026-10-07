@@ -1,6 +1,6 @@
 # TubeNest
 
-YouTube 與 Shorts 專用下載工具。Windows 10／11 x64 · Edge／Chrome 127+ · 繁體中文 · 1.0.1 測試版
+YouTube 與 Shorts 專用下載工具。Windows 10／11 x64 · Edge／Chrome 127+ · 繁體中文 · 1.0.2 測試版
 
 **下載 → 選畫質 → 選儲存位置。按下才啟動本機助手，完成後退出。**
 
@@ -8,11 +8,19 @@ YouTube 與 Shorts 專用下載工具。Windows 10／11 x64 · Edge／Chrome 127
 
 本版尚未上架擴充商店；註冊、包裝及審核限制見 [商店發布流程](docs/STORE.md)。
 
-![TubeNest 深色面板](docs/images/popup-dark.png)
+## 1.0.2 介面改版
+
+深淺色面板沿用瀏覽器的視覺語言；影片資訊、畫質與唯一主下載按鈕分層呈現。重新讀取畫質保留已選畫質；工作進行時避免重複啟動。下載紀錄顯示真實階段，可取消或開啟完成檔案所在資料夾。網頁按鈕繼續跟隨 YouTube 深淺色，兩側各保留 8px 間距。
+
+| 淺色面板 | 深色面板 |
+|---|---|
+| ![TubeNest 淺色面板](docs/images/popup-light.png) | ![TubeNest 深色面板](docs/images/popup-dark.png) |
+
+介面示意使用測試資料；完整影片驗證結果另見 [VALIDATION.md](VALIDATION.md)。
 
 ## 安裝一次
 
-1. 解壓 `TubeNest-1.0.1-Windows.zip`，執行 `Install.cmd`。
+1. 解壓 `TubeNest-1.0.2-Windows.zip`，執行 `Install.cmd`。
 2. 工具會放在 `%LOCALAPPDATA%\TubeNestYouTube`，只為目前帳號註冊，不需要管理員權限。
 3. 安裝會自動開啟 Edge 擴充頁並複製上述 `extension` 資料夾路徑。第一次安裝時，啟用「開發人員模式」→「載入解壓縮」→ 貼上路徑 →「選擇資料夾」。已載入 TubeNest 者只需按「重新載入」，再重新整理 YouTube。
 4. 若曾安裝 MediaDock，先移除或停用該擴充，再載入 TubeNest 並重新整理 YouTube。為方便遷移，擴充 ID 沿用 `fhjcedbbonnlkilcklhodjejolannode`，因此兩者不能同時啟用。TubeNest 使用獨立的安裝資料夾及本機助手註冊。
@@ -56,6 +64,7 @@ YouTube 網頁按鈕會跟隨網站深淺色模式，文字及圖示一起切換
 pnpm install --frozen-lockfile
 pnpm test
 pnpm test:ui
+pnpm test:ui-states
 .\scripts\Build.ps1
 ```
 

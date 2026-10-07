@@ -1,1 +1,33 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>TubeNest 使用說明</title><link rel="stylesheet" href="style.css"></head><body class="setup"><main><p class="eyebrow">TUBENEST 1.0 · WINDOWS 10 / 11 X64</p><h1>按下才啟動，完成後退出。</h1><p>只下載 YouTube 影片和 Shorts。閒置時沒有下載助手、PowerShell、FFmpeg 或本機伺服器常駐。</p><h2>安裝一次</h2><ol><li>解壓完整 Windows 包，執行 <code>Install.cmd</code>。下載工具會安裝在你的帳號內，不需要管理員權限。</li><li>開啟 <code>edge://extensions</code> 或 <code>chrome://extensions</code>，啟用開發人員模式並載入安裝完成提示的 extension 資料夾。</li></ol><h2>下載</h2><p>開啟 YouTube 影片，點分享旁下載按鈕或工具列圖示。面板會讀取畫質，選畫質，再按「下載並選擇儲存位置」。保存前會驗證影片 ID、畫質、片長及完整影音解碼。關閉面板仍會下載，關閉瀏覽器則取消。</p><h2>更新與移除</h2><p>來源回傳 403 或要求驗證時，執行 <code>Update.cmd</code> 更新下載工具後重試。來源限制仍可能使下載失敗。執行 <code>Uninstall.cmd</code> 移除本機助手註冊，再從瀏覽器移除擴充。</p><h2>隱私與檔案</h2><p>不讀取、匯出或保存帳號 Cookie，不使用第三方下載網站。只處理你目前選定的 YouTube 影片。下載工作會使用 CPU、網路及暫存空間；閒置時仍保留瀏覽器擴充本身的少量開銷。沒有直播、DRM、其他平台或自動降畫質功能。</p></main></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TubeNest 使用說明</title><link rel="stylesheet" href="style.css"></head>
+<body class="setup">
+<main>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 17v3h14v-3"/></svg></span><strong>TubeNest</strong></div>
+    <span class="header-note">使用說明 · 1.0.2</span>
+  </header>
+  <section class="setup-hero">
+    <p class="eyebrow">YOUTUBE & SHORTS · WINDOWS</p>
+    <h1>喜歡的影片，<br>照你想要的畫質保存。</h1>
+    <p>選畫質，選位置，剩下交給 TubeNest。按下才啟動本機助手，完成後退出，不需要常駐視窗。</p>
+  </section>
+  <section class="guide" aria-labelledby="getting-started">
+    <p class="guide-kicker">只需設定一次</p>
+    <h2 id="getting-started">從安裝到下載，三個步驟。</h2>
+    <ol class="steps">
+      <li><div><strong>安裝本機助手</strong><p>解壓完整 Windows 安裝包，執行 <code>Install.cmd</code>。工具會安裝在目前帳號內，不需要管理員權限。</p></div></li>
+      <li><div><strong>載入瀏覽器擴充</strong><p>安裝程式會開啟 Edge 擴充頁，並複製擴充資料夾路徑。啟用「開發人員模式」→「載入解壓縮」→ 貼上路徑 →「選擇資料夾」。已有 TubeNest 時按「重新載入」，再重新整理 YouTube。</p></div></li>
+      <li><div><strong>打開影片，按下載</strong><p>點 YouTube 分享旁的下載按鈕，或工具列 TubeNest。選畫質，按「下載並選擇儲存位置」，再在另存新檔視窗選位置。Shorts 會保留原始直向尺寸。</p></div></li>
+    </ol>
+  </section>
+  <div class="guide-grid">
+    <section><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4 4 7 8 9 4-2 8-5 8-9V6zM8 12l3 3 5-6"/></svg>保存前，先驗證。</h2><p>影片 ID、實際畫質、片長與完整影音解碼通過後，才保存到指定位置。不自動降畫質，不重新壓縮影像。</p><p>關閉面板仍會下載；重新開啟即可查看進度或取消。關閉瀏覽器會中止工作。</p></section>
+    <section><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v8h4l-7 10-7-10h4z"/></svg>需要時，才開始工作。</h2><p>沒有開機啟動、系統匣圖示或常駐下載助手。下載與驗證期間使用 CPU、網路和暫存空間；閒置時只保留擴充本身的少量開銷。</p><p>不讀取或匯出帳號 Cookie，不使用第三方下載網站。支援一般 YouTube 影片及 Shorts。</p></section>
+    <section><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6.2 7a7 7 0 0 1 11.5-1L20 9M4 15l2.3 3A7 7 0 0 0 17.8 17"/></svg>更新與排除問題</h2><p>來源回傳 403 或要求驗證時，執行 <code>Update.cmd</code> 更新下載工具後重試。來源限制仍可能使下載失敗。</p><p>Chrome 可使用 <code>chrome://extensions</code> 載入安裝完成提示的擴充資料夾。本版沒有直播、直播回放、其他平台或受保護內容下載功能。</p></section>
+    <section><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></svg>想移除時</h2><p>執行 <code>Uninstall.cmd</code> 移除本機助手註冊，再從瀏覽器移除擴充。程式檔案及已下載影片會保留，供你自行處理。</p></section>
+  </div>
+  <footer><span>TubeNest · YouTube 與 Shorts 專用</span><span>Windows 10 / 11 x64 · Edge / Chrome</span></footer>
+</main>
+</body>
+</html>

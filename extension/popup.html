@@ -1,9 +1,36 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TubeNest</title><link rel="stylesheet" href="style.css"></head><body><main>
-<header><div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><strong>TubeNest</strong></div><button id="help" class="text" aria-label="安裝與使用說明">使用說明</button></header>
-<p class="eyebrow">YOUTUBE / SHORTS</p><h1 id="title">正在讀取目前分頁…</h1><p id="detail" class="muted">選畫質，保存完整影片與聲音。</p>
-<button id="probe" class="primary full" disabled>讀取畫質</button>
-<section id="settings" hidden><div class="field"><label for="quality">畫質</label><select id="quality"></select></div><button id="download" class="primary full">下載並選擇儲存位置</button></section>
-<p id="message" role="status" aria-live="polite" hidden></p>
-<details><summary>下載紀錄 <span id="count"></span></summary><div id="history"></div><button id="clear" class="text">清除已結束紀錄</button></details>
-<footer><span id="state">按下才啟動 · 完成後退出</span><span>1.0 測試版</span></footer>
-</main><script type="module" src="popup.js"></script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TubeNest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="popup">
+<main>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 17v3h14v-3"/></svg></span><strong>TubeNest</strong></div>
+    <button id="help" class="icon-button" aria-label="安裝與使用說明" title="使用說明"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 .5c0 2-2.5 2-2.5 3.5m0 3h.01"/></svg></button>
+  </header>
+  <section class="video-info" aria-labelledby="title">
+    <div class="video-toolbar"><span class="platform"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="m10 9 5 3-5 3z"/></svg>YouTube <span class="platform-divider">/</span> Shorts</span><button id="probe" class="icon-button" disabled aria-label="重新讀取畫質" title="重新讀取畫質"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6.2 7a7 7 0 0 1 11.5-1L20 9M4 15l2.3 3A7 7 0 0 0 17.8 17"/></svg></button></div>
+    <h1 id="title">正在讀取目前分頁…</h1>
+    <p id="detail" class="muted">選畫質，保存影片與聲音。</p>
+  </section>
+  <section id="settings" class="download-panel" aria-label="下載設定" hidden>
+    <div class="field-heading"><label for="quality">影片畫質</label><span class="muted">原始畫質</span></div>
+    <select id="quality" aria-describedby="quality-hint"></select>
+    <p id="quality-hint" class="field-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 9-4 3h-2v4h2l4 3zM13 10a5 5 0 0 1 0 8m3-11a9 9 0 0 1 0 14"/></svg>包含聲音 · 保存為 MP4</p>
+    <button id="download" class="primary full"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><span id="download-label">下載並選擇儲存位置</span></button>
+  </section>
+  <p id="message" class="notice" role="status" aria-live="polite" hidden></p>
+  <details id="downloads">
+    <summary><span class="history-heading"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 3 7M3 4v7h7m2-4v5l3 2"/></svg>下載紀錄</span><span id="count" class="count"></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></summary>
+    <div id="history"></div>
+    <button id="clear" class="text full" hidden>清除已結束紀錄</button>
+  </details>
+  <footer><span class="idle-state"><span id="state-dot" aria-hidden="true"></span><span id="state">按下才啟動 · 完成後退出</span></span><span>1.0.2</span></footer>
+</main>
+<script type="module" src="popup.js"></script>
+</body>
+</html>
