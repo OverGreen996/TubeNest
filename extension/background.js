@@ -49,7 +49,7 @@ async function handle(m){
 }
 chrome.runtime.onMessage.addListener((m,s,reply)=>{
  if(m.action==='open'){
-   (async()=>{if(s.id!==chrome.runtime.id||s.frameId!==0||!s.tab?.id||!videoId(s.url))throw new Error('請在目前影片點下載。');const [tab]=await chrome.tabs.query({active:true,windowId:s.tab.windowId});if(tab?.id!==s.tab.id||videoId(tab.url)!==videoId(s.url))throw new Error('影片已切換。');await chrome.action.openPopup({windowId:tab.windowId});return {};})().then(data=>reply({ok:true,data}),e=>reply({ok:false,error:e.message}));return true;
+   (async()=>{let origin;try{origin=new URL(s.url).origin;}catch{}if(s.id!==chrome.runtime.id||s.frameId!==0||!s.tab?.id||origin!=='https://www.youtube.com'||!videoId(m.url))throw new Error('請在目前影片點下載。');const [tab]=await chrome.tabs.query({active:true,windowId:s.tab.windowId});if(tab?.id!==s.tab.id||videoId(tab.url)!==videoId(m.url))throw new Error('影片已切換，請重新點下載。');await chrome.action.openPopup({windowId:tab.windowId});return {};})().then(data=>reply({ok:true,data}),e=>reply({ok:false,error:e.message}));return true;
  }
  if(s.id!==chrome.runtime.id||s.tab||s.url!==chrome.runtime.getURL('popup.html')){reply({ok:false,error:'未授權的來源。'});return false;}
  handle(m).then(data=>reply({ok:true,data}),e=>reply({ok:false,error:e.message}));return true;

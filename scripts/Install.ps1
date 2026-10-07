@@ -1,4 +1,4 @@
-﻿param([switch]$RefreshTools,[switch]$ToolsOnly,[string]$TargetRoot)
+﻿param([switch]$RefreshTools,[switch]$ToolsOnly,[string]$TargetRoot,[switch]$NoBrowser,[ValidateSet('Edge','Chrome')][string]$Browser='Edge')
 $ErrorActionPreference='Stop'
 $ProgressPreference='SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
@@ -55,4 +55,14 @@ if(-not $ToolsOnly){
  foreach($installBrowser in @('Google\Chrome','Microsoft\Edge')){$installKey="HKCU:\Software\$installBrowser\NativeMessagingHosts\com.tubenest.youtube";New-Item -Path $installKey -Force|Out-Null;Set-Item -LiteralPath $installKey -Value $installManifest}
  Write-Host "安裝完成。開啟 edge://extensions 或 chrome://extensions，啟用開發人員模式並載入："
  Write-Host (Join-Path $installTarget 'extension')
+ if(-not $NoBrowser){
+  $installExtensionPath=Join-Path $installTarget 'extension'
+  try{Set-Clipboard -Value $installExtensionPath;Write-Host '擴充資料夾路徑已複製。'}catch{Write-Host '請手動複製上面的擴充資料夾路徑。'}
+  $installBrowserRelative=if($Browser -eq 'Chrome'){'Google\Chrome\Application\chrome.exe'}else{'Microsoft\Edge\Application\msedge.exe'}
+  $installBrowserUrl=if($Browser -eq 'Chrome'){'chrome://extensions'}else{'edge://extensions'}
+  $installBrowserExe=@($env:ProgramFiles,${env:ProgramFiles(x86)},$env:LOCALAPPDATA) | Where-Object{$_} | ForEach-Object{Join-Path $_ $installBrowserRelative} | Where-Object{Test-Path -LiteralPath $_} | Select-Object -First 1
+  if($installBrowserExe){try{Start-Process -FilePath $installBrowserExe -ArgumentList $installBrowserUrl -WindowStyle Normal}catch{Write-Host "請自行開啟 $installBrowserUrl"}}else{Write-Host "請自行開啟 $installBrowserUrl"}
+  Write-Host '第一次安裝：開啟「開發人員模式」→「載入解壓縮」→ 貼上路徑 →「選擇資料夾」。'
+  Write-Host '更新既有 TubeNest：只需點 TubeNest 的「重新載入」，再重新整理 YouTube。'
+ }
 }

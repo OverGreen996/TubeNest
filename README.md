@@ -1,21 +1,27 @@
 # TubeNest
 
-YouTube 與 Shorts 專用下載工具。Windows 10／11 x64 · Edge／Chrome 127+ · 繁體中文 · 1.0.0 測試版
+YouTube 與 Shorts 專用下載工具。Windows 10／11 x64 · Edge／Chrome 127+ · 繁體中文 · 1.0.1 測試版
 
 **下載 → 選畫質 → 選儲存位置。按下才啟動本機助手，完成後退出。**
 
 [下載 Windows 安裝包](https://github.com/OverGreen996/TubeNest/releases/latest) · [實際驗證](VALIDATION.md) · [第三方工具與授權](THIRD-PARTY.md)
 
+本版尚未上架擴充商店；註冊、包裝及審核限制見 [商店發布流程](docs/STORE.md)。
+
 ![TubeNest 深色面板](docs/images/popup-dark.png)
 
 ## 安裝一次
 
-1. 解壓 `TubeNest-1.0.0-Windows.zip`，執行 `Install.cmd`。
+1. 解壓 `TubeNest-1.0.1-Windows.zip`，執行 `Install.cmd`。
 2. 工具會放在 `%LOCALAPPDATA%\TubeNestYouTube`，只為目前帳號註冊，不需要管理員權限。
-3. 到 `edge://extensions` 或 `chrome://extensions` 啟用開發人員模式，載入 `%LOCALAPPDATA%\TubeNestYouTube\extension`。
+3. 安裝會自動開啟 Edge 擴充頁並複製上述 `extension` 資料夾路徑。第一次安裝時，啟用「開發人員模式」→「載入解壓縮」→ 貼上路徑 →「選擇資料夾」。已載入 TubeNest 者只需按「重新載入」，再重新整理 YouTube。
 4. 若曾安裝 MediaDock，先移除或停用該擴充，再載入 TubeNest 並重新整理 YouTube。為方便遷移，擴充 ID 沿用 `fhjcedbbonnlkilcklhodjejolannode`，因此兩者不能同時啟用。TubeNest 使用獨立的安裝資料夾及本機助手註冊。
 
 安裝包包含本機助手及擴充。首次安裝會下載官方 yt-dlp、FFmpeg／ffprobe、Deno，核對 GitHub 發行檔的 SHA-256；使用者不用另外安裝 Python、Node.js 或設定 PATH。工具約占用數百 MB 磁碟空間，安裝與更新時需網路。
+
+Chrome 使用者可執行 `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Install.ps1 -Browser Chrome`；自動測試可加 `-NoBrowser`。瀏覽器首次載入本機擴充仍需要使用者操作，不宣稱安裝腳本能自動替你核准擴充。
+
+1.0.1 修正從 YouTube 首頁切換影片後，下載按鈕無法開啟面板的問題；按鈕兩側保留 8px 間距，錯誤直接顯示在按鈕旁。
 
 ## 使用
 
