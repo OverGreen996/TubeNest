@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TubeNest</title><link rel="stylesheet" href="style.css"></head><body><main>
+<header><div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/></svg><strong>TubeNest</strong></div><button id="help" class="text" aria-label="安裝與使用說明">使用說明</button></header>
+<p class="eyebrow">YOUTUBE / SHORTS</p><h1 id="title">正在讀取目前分頁…</h1><p id="detail" class="muted">選畫質，保存完整影片與聲音。</p>
+<button id="probe" class="primary full" disabled>讀取畫質</button>
+<section id="settings" hidden><div class="field"><label for="quality">畫質</label><select id="quality"></select></div><button id="download" class="primary full">下載並選擇儲存位置</button></section>
+<p id="message" role="status" aria-live="polite" hidden></p>
+<details><summary>下載紀錄 <span id="count"></span></summary><div id="history"></div><button id="clear" class="text">清除已結束紀錄</button></details>
+<footer><span id="state">按下才啟動 · 完成後退出</span><span>1.0 測試版</span></footer>
+</main><script type="module" src="popup.js"></script></body></html>
