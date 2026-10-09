@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
-const root = path.resolve('extension'), out = path.resolve('test-output/ui-polish');
+import {launchOptions, outputDirectory, testBrowser} from './test-browser.mjs';
+const root = path.resolve('extension'), out = outputDirectory('ui-states', 'test-output/ui-polish');
 fs.mkdirSync(out, {recursive:true});
 const server = http.createServer((req, res) => {
   const file = path.resolve(root, req.url.slice(1) || 'popup.html');
@@ -13,7 +14,8 @@ const server = http.createServer((req, res) => {
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const url = 'http://127.0.0.1:' + server.address().port;
-const browser = await chromium.launch({channel:'msedge', headless:true});
+const browser = await chromium.launch(launchOptions);
+fs.writeFileSync(path.join(out,'browser.json'), JSON.stringify({browser:testBrowser,version:browser.version()},null,2));
 const errors = [];
 const fixtures = {
   title: '山與海之間，留一段旅途給自己｜週末影像日記',
@@ -77,6 +79,11 @@ try {
       assert.ok((Math.max(...values)+.05)/(Math.min(...values)+.05) >= 4.5, scheme + ' contrast ' + pair);
     }
     await page.screenshot({path:path.join(out, 'popup-'+scheme+'.png'), clip:await page.locator('body').boundingBox()});
+    const layout = await page.evaluate(() => Object.fromEntries(['body','.brand','#title','#detail','#settings','#quality','#download','summary','footer'].map(selector => {
+      const e = document.querySelector(selector), rect = e.getBoundingClientRect(), style = getComputedStyle(e);
+      return [selector,{x:rect.x,y:rect.y,width:rect.width,height:rect.height,color:style.color,background:style.backgroundColor,font:style.fontFamily,fontSize:style.fontSize,borderRadius:style.borderRadius}];
+    })));
+    fs.writeFileSync(path.join(out,'layout-'+scheme+'.json'), JSON.stringify(layout,null,2));
     await page.locator('#quality').selectOption('2160');
     await page.locator('#probe').click();
     await page.locator('#probe:not([disabled])').waitFor();

@@ -1,5 +1,9 @@
 # TubeNest 驗證紀錄
 
+## Chrome / Edge 相容性（2026-10-09）
+
+使用 Google 官方 Chrome for Testing 155.0.8059.39 與 Edge 154.0.4258.62、各自獨立未登入設定檔，測試同一份 TubeNest 1.0.2。控制資料下深淺色面板 PNG 完全相同，9 個主要元素版面及樣式沒有差異；兩邊的真正公開 YouTube 一般影片與 Shorts 頁面均正常掛入分享後的下載按鈕。Chrome 真正擴充面板 → 已安裝本機助手 → 真實 YouTube 標題與 1080p 畫質串接通過。未重新下載全片，也未另外執行一般版 Chrome 的人工安裝流程。完整方法與限制見 [Chrome / Edge 驗證](docs/CHROME-VERIFICATION.md)。
+
 ## 1.0.2 介面改版（2026-10-08）
 
 - 核心 7 項測試通過；下載引擎、權限及原生通訊來源檢查未更改。

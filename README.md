@@ -56,7 +56,7 @@ YouTube 網頁按鈕會跟隨網站深淺色模式，文字及圖示一起切換
 
 ## 驗證與開發
 
-實際結果與限制見 [VALIDATION.md](VALIDATION.md)，第三方工具來源及授權見 [THIRD-PARTY.md](THIRD-PARTY.md)。本專案採用 yt-dlp 解析 YouTube，FFmpeg 合併及驗證影音；瀏覽器透過 Native Messaging 呼叫本機助手。
+實際結果與限制見 [VALIDATION.md](VALIDATION.md)，[Chrome / Edge 比對](docs/CHROME-VERIFICATION.md) 已以官方 Chrome for Testing 及 Edge 實際檢查。第三方工具來源及授權見 [THIRD-PARTY.md](THIRD-PARTY.md)。本專案採用 yt-dlp 解析 YouTube，FFmpeg 合併及驗證影音；瀏覽器透過 Native Messaging 呼叫本機助手。
 
 開發者才需 Node.js／Playwright；本機助手使用 Windows 內建 .NET Framework 編譯器：
 

@@ -2,9 +2,10 @@ import {chromium} from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const out=path.resolve('test-output/button-native');fs.mkdirSync(out,{recursive:true});
+import {launchOptions,outputDirectory,testBrowser} from './test-browser.mjs';
+const out=outputDirectory('button-native','test-output/button-native');fs.mkdirSync(out,{recursive:true});
 const extension=path.resolve('extension');
-const ctx=await chromium.launchPersistentContext(path.join(out,'profile-'+Date.now()),{channel:'msedge',headless:true,args:[`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
+const ctx=await chromium.launchPersistentContext(path.join(out,'profile-'+Date.now()),{...launchOptions,args:[`--disable-extensions-except=${extension}`,`--load-extension=${extension}`]});
 try{
  const worker=ctx.serviceWorkers()[0]||await ctx.waitForEvent('serviceworker');
  await worker.evaluate(()=>chrome.runtime.onMessage.addListener((m,s)=>{if(m.action==='open')globalThis.lastButtonSender={url:s.url,origin:s.origin,frameId:s.frameId,tabId:s.tab?.id,messageUrl:m.url};}));
@@ -28,8 +29,8 @@ try{
   cdp.on('Target.receivedMessageFromTarget',event=>{const r=JSON.parse(event.message);if(r.id){pending.get(r.id)?.(r);pending.delete(r.id);}});
   const evaluate=expression=>new Promise((resolve,reject)=>{const id=++sequence;pending.set(id,r=>r.error||r.result.exceptionDetails?reject(new Error(JSON.stringify(r))):resolve(r.result.result.value));cdp.send('Target.sendMessageToTarget',{sessionId,message:JSON.stringify({id,method:'Runtime.evaluate',params:{expression,returnByValue:true,awaitPromise:true,userGesture:true}})}).catch(reject);});
   let result;
-  for(let i=0;i<180;i++){result=await evaluate(`({ready:!document.querySelector('#settings').hidden,title:document.querySelector('#title').textContent,error:document.querySelector('#message').classList.contains('error')?document.querySelector('#message').textContent:'',options:[...document.querySelector('#quality').options].map(o=>o.textContent)})`);if(result.error)throw new Error(result.error);if(result.ready)break;await new Promise(r=>setTimeout(r,500));}
-  assert.equal(result.ready,true);assert.match(result.title,/許純美/);assert.ok(result.options.includes('1080p'));fs.writeFileSync(path.join(out,'after.json'),JSON.stringify({sender,spacing,...result},null,2));
-  console.log('PASS: homepage → SPA video → trusted page-button click → real Edge popup → real YouTube qualities, with both side margins.');
+  for(let i=0;i<180;i++){result=await evaluate(`({ready:document.querySelector('#settings')?.hidden===false,title:document.querySelector('#title')?.textContent||'',error:document.querySelector('#message')?.classList.contains('error')?document.querySelector('#message').textContent:'',options:[...(document.querySelector('#quality')?.options||[])].map(o=>o.textContent)})`);if(result.error)throw new Error(result.error);if(result.ready)break;await new Promise(r=>setTimeout(r,500));}
+  assert.equal(result.ready,true);assert.match(result.title,/許純美/);assert.ok(result.options.includes('1080p'));fs.writeFileSync(path.join(out,'after.json'),JSON.stringify({browser:testBrowser,version:ctx.browser().version(),sender,spacing,...result},null,2));
+  console.log('PASS ('+testBrowser+'): homepage → SPA video → trusted page-button click → real extension popup → real YouTube qualities, with both side margins.');
  }
 }finally{await ctx.close();}
