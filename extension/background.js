@@ -19,7 +19,7 @@ function connect(){
  });
  native.onDisconnect.addListener(()=>{
    const reason=chrome.runtime.lastError?.message||'本機助手連線已中斷。';if(port!==native)return;port=null;
-   for(const r of requests.values()){clearTimeout(r.timer);r.reject(new Error(/not found|not registered|not installed/i.test(reason)?'請先執行安裝本機助手，再重開面板。':reason));}requests.clear();
+   for(const r of requests.values()){clearTimeout(r.timer);r.reject(new Error(/not found|not registered|not installed/i.test(reason)?'請開啟 TubeNest 安裝精靈，選「檢查與修復」，完成後重開面板。':reason));}requests.clear();
    for(const id of jobs)update({id,status:'failed',error:'本機助手已中斷，請重新下載。'});jobs.clear();
  });return native;
 }
